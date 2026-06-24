@@ -1,0 +1,25 @@
+# Core (always needed)
+joblib>=1.3
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+scipy>=1.10
+optuna>=3.5
+matplotlib>=3.5
+pyyaml>=6.0
+tqdm>=4.66
+
+# Deep regressors (MLP/FNN/CNN)
+torch>=2.1
+
+# Boosting regressors (optional but recommended)
+xgboost>=2.0
+lightgbm>=4.0
+
+# Protein language model embedding extraction (optional, large)
+fair-esm>=2.0
+transformers>=4.36
+sentencepiece>=0.1.99
+
+# Web GUI (optional)
+streamlit>=1.30

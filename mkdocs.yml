@@ -1,0 +1,56 @@
+site_name: PLM-Classifier
+site_description: General sequence → class label classification (binary/multiclass) with protein language models, deep + classical classifiers, size-aware Optuna search, and a no-code GUI.
+site_url: https://zadak-h.github.io/plm-classifier/
+repo_url: https://github.com/Zadak-H/plm-classifier
+repo_name: Zadak-H/plm-classifier
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Install: install.md
+  - GUI usage: gui.md
+  - CLI usage: cli.md
+  - Models & pLMs: models.md
+  - How it works: concepts.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Zadak-H/plm-classifier
