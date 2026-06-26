@@ -3,7 +3,9 @@ site_description: General sequence → class label classification (binary/multic
 site_url: https://zadak-h.github.io/plm-classifier/
 repo_url: https://github.com/Zadak-H/plm-classifier
 repo_name: Zadak-H/plm-classifier
-edit_uri: edit/main/docs/
+edit_uri: edit/main/docs_src/
+docs_dir: docs_src
+site_dir: docs
 
 theme:
   name: material
