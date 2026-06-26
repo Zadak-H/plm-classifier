@@ -26,9 +26,24 @@ plm-classifier list      # classifiers + pLMs and whether each is available
 plm-classifier gui       # launch the web app
 ```
 
-## Notes
+## ESM-C setup (one time)
 
-- **ESM C native** (`esmc_*`) needs EvolutionaryScale's `esm` SDK, which collides with `fair-esm`;
-  use **ESM++** (`esmplusplus_small/large`) for the same embeddings via `transformers` with no clash.
+ESM-C (`esmc_300m`, `esmc_600m`) uses EvolutionaryScale's `esm` SDK which conflicts with
+`fair-esm` and requires Python ≥ 3.10. **You do not need to switch environments manually** —
+the tool auto-discovers any conda env that has the SDK and uses it via subprocess.
+
+Set it up once:
+
+```bash
+conda create -n esmc python=3.10 -y
+conda activate esmc
+pip install esm httpx
+```
+
+After that, select `esmc_300m` or `esmc_600m` anywhere (GUI or CLI) and it works automatically.
+You will see `[ESM-C] using: /path/to/esmc/bin/python3` in the log.
+
+## Notes on other optional backends
+
 - LightGBM / CARP are optional; missing backends simply don't appear in `plm-classifier list`.
 - A CUDA GPU is used automatically when available.
