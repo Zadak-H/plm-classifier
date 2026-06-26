@@ -297,8 +297,17 @@ with tabs[7]:
     st.header("Rank candidate sequences")
     pred_run_dir = st.text_input("Saved run directory", ss.get("out_dir", "runs/gui_run"), key="pred_run")
     cand = st.file_uploader("Upload candidate CSV", type=["csv"], key="cand")
-    pseq = st.text_input("Candidate sequence column", "Sequence")
-    cand_emb = st.text_input("Candidate embedding directory (optional)", "")
+    _cand_default_seq = ss.get("seq_col", "sequence")
+    if cand is not None:
+        try:
+            _cand_cols = pd.read_csv(cand, nrows=0).columns.tolist()
+            cand.seek(0)
+            if _cand_default_seq not in _cand_cols and _cand_cols:
+                _cand_default_seq = _cand_cols[0]
+        except Exception:
+            pass
+    pseq = st.text_input("Candidate sequence column", _cand_default_seq)
+    cand_emb = st.text_input("Candidate embedding directory (optional)", ss.get("embedding_dir", ""))
     pos = st.text_input("Rank by class (optional, overrides run default)", "")
     top_n = st.number_input("Top N", 1, 100000, 100)
     if st.button("Rank candidates"):
@@ -315,7 +324,14 @@ with tabs[7]:
                         candidate_embedding_dir=cand_emb or None, top_n=int(top_n), positive_class=pos or None,
                     )
                     ranked = pd.read_csv(out)
-                    st.success(f"Ranked {len(ranked)} candidates.")
+                    if "missing_any_feature" in ranked.columns and ranked["missing_any_feature"].all():
+                        st.warning(
+                            "All candidates are missing embeddings — predictions are blank. "
+                            "Set 'Candidate embedding directory' to a folder containing the "
+                            "required .npz files, or use **Tab 0 (Embed)** to generate them first."
+                        )
+                    else:
+                        st.success(f"Ranked {len(ranked)} candidates.")
                     st.dataframe(ranked.head(50), use_container_width=True)
                     st.download_button("Download candidate_predictions.csv", out.read_bytes(),
                                        file_name="candidate_predictions.csv")
